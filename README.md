@@ -10,7 +10,6 @@ Instead of training only on static slide-report pairs, PathCowork synchronizes f
 
 ## Main Manuscript Figure
 
-`image-2.png` is the main figure used in the manuscript.
 
 ![PathCowork main manuscript figure](image-2.png)
 
@@ -77,29 +76,6 @@ For IVT-IDT fixation comparison panels and manuscript-ready gaze/boundary overla
 By default, gaze overlays are rendered without any `union.png` crop fix.
 If a dataset has canvas-border artifacts, crop can be enabled manually via
 `canvas_crop_insets=(top, bottom, left, right)`.
-
-## Streamlit Prototype Constraint Policy
-
-For the Streamlit debugging prototype, we explicitly prefer truthful constraints over UI hacks.
-
-- If a requested UI behavior is not supported by Streamlit natively, we state that directly.
-- We do not ship fragile CSS/JS hacks as substitutes for unsupported core behavior.
-- If needed, we escalate to a proper web stack (for example React + FastAPI) for richer UI controls.
-
-## Streamlit Debugger
-
-Run:
-
-```bash
-cd /Volumes/ExternalHD/PathCowork
-streamlit run streamlit_app.py
-```
-
-What it does:
-- Auto-discovers case histories from `history/`
-- Uses `summary` as the first selectable item (montage + PDF export + table)
-- Shows per-segment debug view with mode buttons (`Eye`, `Viewports`, `Mouse`, `All`)
-- Computes gaze artifacts on demand from segment files
 
 ## History Bundle Format
 
