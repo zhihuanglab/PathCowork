@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pathlearn.local/schemas/unified_event.schema.json",
+  "title": "PathLearn Unified Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "timestamp",
+    "session_id",
+    "case_id",
+    "slide_id",
+    "source",
+    "event_type"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "description": "ISO 8601 UTC timestamp",
+      "type": "string",
+      "format": "date-time"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "slide_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "viewport",
+        "gaze",
+        "interaction",
+        "mouse",
+        "revisit"
+      ]
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "zoom",
+        "pan",
+        "inspect",
+        "peek",
+        "highlight",
+        "tool_use",
+        "mouse_move",
+        "mouse_hover",
+        "mouse_click",
+        "revisit"
+      ]
+    },
+    "tool_name": {
+      "description": "Used for tool-like events from interaction or abstracted modalities",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "arguments": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "result": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "region": {
+      "description": "Slide-coordinate region payload when applicable",
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h",
+        "level"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "w": {
+          "type": "number"
+        },
+        "h": {
+          "type": "number"
+        },
+        "level": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

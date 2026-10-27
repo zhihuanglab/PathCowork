@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PathLearn Reviewer</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f4f6f8; color: #111; }
+    .top { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #ddd; padding: 12px 16px; z-index: 10; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    button, select, input, textarea { font: inherit; }
+    button { border: 1px solid #ccc; background: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+    button.primary { background: #0b62ff; color: #fff; border-color: #0b62ff; }
+    button.yes { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+    button.no { background: #c62828; color: #fff; border-color: #c62828; }
+    .container { max-width: 1180px; margin: 16px auto; padding: 0 16px 32px; }
+    .card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 16px; }
+    .meta { color: #444; font-size: 13px; white-space: pre-wrap; }
+    .text { white-space: pre-wrap; margin: 12px 0; line-height: 1.35; }
+    .images { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+    .images img { width: 100%; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }
+    .muted { color: #666; font-size: 13px; }
+    .status { font-weight: 600; }
+    textarea { width: 100%; min-height: 80px; padding: 8px; border-radius: 8px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="row">
+      <strong>PathLearn Reviewer</strong>
+      <span id="summary" class="muted"></span>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <label>Type:
+        <select id="typeFilter">
+          <option value="all">all</option>
+          <option value="human_readable">human_readable</option>
+          <option value="machine_friendly">machine_friendly</option>
+          <option value="evaluation">evaluation</option>
+        </select>
+      </label>
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
+      <button id="yesBtn" class="yes">Yes</button>
+      <button id="noBtn" class="no">No</button>
+      <button id="clearBtn">Clear</button>
+      <button id="exportBtn" class="primary">Export Decisions</button>
+      <input id="importInput" type="file" accept=".json" />
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="itemCard" class="card"></div>
+  </div>
+
+  <script>
+    const MANIFEST_URL = "../data/review_manifest.json";
+    const LS_KEY = "pathlearn_reviewer_decisions_v1";
+
+    let manifest = { items: [], counts: {} };
+    let filteredItems = [];
+    let idx = 0;
+    let decisions = {};
+
+    function loadDecisions() {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return {};
+      try { return JSON.parse(raw); } catch { return {}; }
+    }
+    function saveDecisions() {
+      localStorage.setItem(LS_KEY, JSON.stringify(decisions));
+    }
+    function applyFilter() {
+      const f = document.getElementById("typeFilter").value;
+      filteredItems = manifest.items.filter(it => f === "all" ? true : it.type === f);
+      idx = Math.min(idx, Math.max(filteredItems.length - 1, 0));
+      render();
+    }
+    function currentItem() {
+      return filteredItems[idx] || null;
+    }
+    function decisionOf(itemId) {
+      return decisions[itemId]?.label || "unreviewed";
+    }
+    function setDecision(label) {
+      const it = currentItem();
+      if (!it) return;
+      const note = document.getElementById("noteBox").value || "";
+      decisions[it.id] = { label, note, updated_at: new Date().toISOString(), type: it.type };
+      saveDecisions();
+      render();
+    }
+    function clearDecision() {
+      const it = currentItem();
+      if (!it) return;
+      delete decisions[it.id];
+      saveDecisions();
+      render();
+    }
+    function renderSummary() {
+      const total = filteredItems.length;
+      let yes = 0, no = 0;
+      for (const it of filteredItems) {
+        const d = decisionOf(it.id);
+        if (d === "yes") yes += 1;
+        if (d === "no") no += 1;
+      }
+      document.getElementById("summary").textContent =
+        `filtered=${total} | yes=${yes} no=${no} unreviewed=${Math.max(total - yes - no, 0)}`;
+    }
+    function render() {
+      renderSummary();
+      const card = document.getElementById("itemCard");
+      const it = currentItem();
+      if (!it) {
+        card.innerHTML = `<div class="muted">No items for selected filter.</div>`;
+        return;
+      }
+      const d = decisions[it.id] || {};
+      const imagesHtml = (it.images || [])
+        .filter(Boolean)
+        .map(src => `<img src="../../${src}" alt="${it.id}" loading="lazy" />`)
+        .join("");
+      card.innerHTML = `
+        <div class="row">
+          <strong>${idx + 1}/${filteredItems.length} - ${it.title}</strong>
+          <span class="muted">id=${it.id} type=${it.type}</span>
+          <span class="status">status=${decisionOf(it.id)}</span>
+        </div>
+        <div class="text">${escapeHtml(it.text || "")}</div>
+        <div class="images">${imagesHtml || '<div class="muted">No image</div>'}</div>
+        <h4>Meta</h4>
+        <div class="meta">${escapeHtml(JSON.stringify(it.meta || {}, null, 2))}</div>
+        <h4>Reviewer Note</h4>
+        <textarea id="noteBox" placeholder="Optional note...">${escapeHtml(d.note || "")}</textarea>
+      `;
+    }
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+    function downloadJSON(filename, obj) {
+      const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    }
+    async function init() {
+      decisions = loadDecisions();
+      const res = await fetch(MANIFEST_URL);
+      manifest = await res.json();
+      const qp = new URLSearchParams(window.location.search);
+      const initialType = qp.get("type");
+      if (initialType && ["all","human_readable","machine_friendly","evaluation"].includes(initialType)) {
+        document.getElementById("typeFilter").value = initialType;
+      }
+      document.getElementById("typeFilter").addEventListener("change", applyFilter);
+      document.getElementById("prevBtn").addEventListener("click", () => { idx = Math.max(idx - 1, 0); render(); });
+      document.getElementById("nextBtn").addEventListener("click", () => { idx = Math.min(idx + 1, filteredItems.length - 1); render(); });
+      document.getElementById("yesBtn").addEventListener("click", () => setDecision("yes"));
+      document.getElementById("noBtn").addEventListener("click", () => setDecision("no"));
+      document.getElementById("clearBtn").addEventListener("click", clearDecision);
+      document.getElementById("exportBtn").addEventListener("click", () => {
+        downloadJSON("review_decisions.json", {
+          format: "pathlearn.reviewer.decisions.v1",
+          created_at: new Date().toISOString(),
+          decisions,
+        });
+      });
+      document.getElementById("importInput").addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const text = await file.text();
+        const obj = JSON.parse(text);
+        decisions = obj.decisions || {};
+        saveDecisions();
+        render();
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "1") { document.getElementById("typeFilter").value = "human_readable"; applyFilter(); }
+        if (e.key === "2") { document.getElementById("typeFilter").value = "machine_friendly"; applyFilter(); }
+        if (e.key === "3") { document.getElementById("typeFilter").value = "evaluation"; applyFilter(); }
+      });
+      applyFilter();
+    }
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "segment_index": 1,
+  "start_seconds": 1.68,
+  "end_seconds": 4.38,
+  "text": "Okay. So, yeah.",
+  "boxes": [],
+  "boxes_final": {
+    "x1": 0.0,
+    "y1": 0.0,
+    "x2": 121512.0,
+    "y2": 86829.0
+  },
+  "boxes_final_source": "prior",
+  "boxes_final_is_square": false,
+  "mouse": [],
+  "eye": []
+}

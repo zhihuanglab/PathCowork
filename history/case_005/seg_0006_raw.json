@@ -1,0 +1,17 @@
+{
+  "segment_index": 6,
+  "start_seconds": 46.08,
+  "end_seconds": 47.58,
+  "text": "Yeah, into the fat here.",
+  "boxes": [],
+  "boxes_final": {
+    "x1": 16961.0,
+    "y1": 20401.0,
+    "x2": 27849.0,
+    "y2": 29249.0
+  },
+  "boxes_final_source": "prior",
+  "boxes_final_is_square": false,
+  "mouse": [],
+  "eye": []
+}

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Build/package outputs
+build/
+dist/
+*.egg-info/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Temp and logs
+*.tmp
+*.temp
+*.swp
+*.log
+
+# Generated final outputs
+final_outputs/example_data/
+
+# Generated reviewer artifacts
+reviewers/data/
+
+# OS/editor files
+.DS_Store
+# Local secrets
+.env
+.env.local
+
+# Agent local notes
+agent/memory.md
+
+# Large raw/example media and derived data
+videos/
+
+# Local archive folder
+/archive

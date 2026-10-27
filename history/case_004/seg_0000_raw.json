@@ -1,0 +1,39 @@
+{
+  "segment_index": 0,
+  "start_seconds": 0.0,
+  "end_seconds": 1.56,
+  "text": "...to main to have this.",
+  "boxes": [
+    {
+      "x1": -21537,
+      "y1": 0,
+      "x2": 143049,
+      "y2": 86829,
+      "timestamp": "2025-05-12T17:09:33.396Z"
+    },
+    {
+      "x1": 0,
+      "y1": 0,
+      "x2": 0,
+      "y2": 0,
+      "timestamp": "2025-05-12T17:09:33.550Z"
+    },
+    {
+      "x1": -21537,
+      "y1": 0,
+      "x2": 143049,
+      "y2": 86829,
+      "timestamp": "2025-05-12T17:09:33.566Z"
+    }
+  ],
+  "boxes_final": {
+    "x1": 0.0,
+    "y1": 0.0,
+    "x2": 121512.0,
+    "y2": 86829.0
+  },
+  "boxes_final_source": "viewer_union",
+  "boxes_final_is_square": false,
+  "mouse": [],
+  "eye": []
+}

@@ -1,0 +1,9 @@
+{
+  "case_id": "example_case_001",
+  "organ": "skin",
+  "suspected_diagnosis": "melanoma",
+  "patient_age": "79",
+  "clinical_context": "Excisional biopsy, pigmented lesion, concern for malignancy.",
+  "case_thumbnail": "history/case_003/seg_0007_union.webp"
+}
+
