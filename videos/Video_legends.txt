@@ -1,0 +1,11 @@
+Main Video 1 | Interactive whole-slide review with PathCowork.
+
+Screen recording of PathCowork examining a skin whole-slide image. After the user selects a slide and starts review, the agent surveys the tissue, localizes junctional features, inspects the dermis and candidate mitotic figures, and records findings with localized visual evidence before returning control to the user. The full 127.3-second recording is shown at its original speed, with cleaned audio of the original agent narration, English subtitles, and opening and closing title cards.
+
+Video 2 | Capturing pathologist behavior during skin-biopsy review.
+
+Real-time screen recording of a pathologist examining a skin whole-slide image in TissueLab during a PathCowork data-acquisition session. The yellow ring displays gaze position as the reader pans and changes magnification. The original recorded discussion describes peripheral palisading, myxoid stroma and an infiltrative tumor edge, illustrating how spoken observations accompany the tissue being examined. The recording shows human review during data collection. English subtitles accompany the original audio. The full 48.1-s review is retained at its original speed; opening and closing title cards are added, and the audio level is increased for audibility.
+
+Supplementary Video 3 | General navigation learned from pathologist behavior.
+
+Demonstration of PathCowork-general navigating a CAMELYON17 lymph-node slide using a learned viewing policy. The main panel shows the current field and candidate grid cells; the overview shows the viewing trajectory and spatial context. The navigator successively zooms into selected fields, inspects tissue at higher magnification and returns to a broader view before visiting another region. The status panel reports actions, model outputs and measured inference times. Blue overlays indicate reference lesion annotations (filled where read), yellow lines indicate the viewing trajectory and the red box indicates the current field. This recorded example contains 10 steps, with 3.41 s total model inference time and 3.68 s recorded runtime. The supplied visualization lasts 17.9 s, including display holds; its playback timing is preserved. The submission video adds opening and closing title cards and has no audio.

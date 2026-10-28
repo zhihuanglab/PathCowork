@@ -1,0 +1,3 @@
+Main Video 1 | Interactive whole-slide review with PathCowork.
+
+Screen recording of PathCowork examining a skin whole-slide image. After the user selects a slide and starts review, the agent surveys the tissue, localizes junctional features, inspects the dermis and candidate mitotic figures, and records findings with localized visual evidence before returning control to the user. The full 127.3-second recording is shown at its original speed, with cleaned audio of the original agent narration, English subtitles, and opening and closing title cards.

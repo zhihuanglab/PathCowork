@@ -8,6 +8,14 @@ PathCowork is a multimodal platform that lets AI "shadow" expert pathologists du
 
 Instead of training only on static slide-report pairs, PathCowork synchronizes four behavioral streams during routine work: viewport navigation, eye gaze, voice reasoning, and interaction logs (including AI-assist tool usage). These signals are processed into structured supervision, including spatial grounding, trajectories, revisitation patterns, and aligned text/thinking traces. The goal is to close the analysis-navigation gap: helping AI learn both where to look and how to reason.
 
+## Videos
+
+- **[Main Video 1: Interactive whole-slide review](videos/01_Main_Video_1_Agent.mp4)**: PathCowork examines a skin slide, localizes evidence and records findings. Updated recording with cleaned narration audio. [English subtitles](videos/01_Main_Video_1_Agent.en.srt).
+- **[Video 2: Capturing pathologist behavior](videos/02_Video_2_Behavior_Acquisition.mp4)**: Gaze, navigation and spoken observations during skin-biopsy review. [English subtitles](videos/02_Video_2_Behavior_Acquisition.en.srt).
+- **[Supplementary Video 3: Learned navigation](videos/03_Supplementary_Video_3_General_Navigation.mp4)**: PathCowork-general navigates a lymph-node slide using a learned viewing policy.
+
+[Full video descriptions](videos/Video_legends.txt).
+
 ## Main Manuscript Figure
 
 
@@ -52,7 +60,7 @@ See the [Hugging Face model card](https://huggingface.co/sheng-wang/pathcowork-g
 - `schemas/`: unified JSON contracts shared across all processors
 - `history/`: lightweight shareable case-history bundle (`seg_*_raw.json` + `seg_*_union.webp`)
 - `streamlit_app.py`: Streamlit debugging UI for history/segment browsing and on-demand gaze rendering
-- `videos/`: raw and example recordings, logs, and derived artifacts
+- `videos/`: three demonstration videos, English subtitles and video descriptions
 - `image-2.png`: main manuscript figure
 
 ## Data Product Strategy

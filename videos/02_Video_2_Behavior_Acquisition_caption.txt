@@ -1,0 +1,3 @@
+Video 2 | Capturing pathologist behavior during skin-biopsy review.
+
+Real-time screen recording of a pathologist examining a skin whole-slide image in TissueLab during a PathCowork data-acquisition session. The yellow ring displays gaze position as the reader pans and changes magnification. The original recorded discussion describes peripheral palisading, myxoid stroma and an infiltrative tumor edge, illustrating how spoken observations accompany the tissue being examined. The recording shows human review during data collection. English subtitles accompany the original audio. The full 48.1-s review is retained at its original speed; opening and closing title cards are added, and the audio level is increased for audibility.

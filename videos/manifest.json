@@ -1,0 +1,47 @@
+[
+  {
+    "file": "01_Main_Video_1_Agent.en.srt",
+    "bytes": 1103,
+    "sha256": "79b52320a50e64a844b2105a5d67d2dded704ba68d028733ed839751c18aeddf"
+  },
+  {
+    "file": "01_Main_Video_1_Agent.mp4",
+    "bytes": 51725703,
+    "sha256": "3db5eea7a50fe5f991c32ded0b5b32443de3a2ada0cddefcc8113cee8dfa0f0a"
+  },
+  {
+    "file": "01_Main_Video_1_Agent_caption.txt",
+    "bytes": 555,
+    "sha256": "3daa198c49b059f2d0b3a3f60eaf0b91143f01a5d35403fad00e6d3f20d72013"
+  },
+  {
+    "file": "02_Video_2_Behavior_Acquisition.en.srt",
+    "bytes": 596,
+    "sha256": "8c8f37e54e278e64813f589f3804df9e892f93bc02e07e37e95a38fc8029f07e"
+  },
+  {
+    "file": "02_Video_2_Behavior_Acquisition.mp4",
+    "bytes": 13539079,
+    "sha256": "c1be67ac7160b67778d58ebddbcd5f5717b295c71db68232a9ebcada04c2af2d"
+  },
+  {
+    "file": "02_Video_2_Behavior_Acquisition_caption.txt",
+    "bytes": 733,
+    "sha256": "77bd70368030e23e8d0d9e9740a2a577d075a6ff196d67a162a1a4d1b3798924"
+  },
+  {
+    "file": "03_Supplementary_Video_3_General_Navigation.mp4",
+    "bytes": 13458017,
+    "sha256": "5218028273a9608d923d092144a452762d0ee3fa22ab11dfa05d66559d6dc3f2"
+  },
+  {
+    "file": "03_Supplementary_Video_3_General_Navigation_caption.txt",
+    "bytes": 999,
+    "sha256": "09808e25118c9328282fef06a43583e0bd88ad657752eb82064618324e5771bb"
+  },
+  {
+    "file": "Video_legends.txt",
+    "bytes": 2289,
+    "sha256": "d00ff1c4f8d8872ce8ce3814618608a80d8028e64736d22cf5c11218ac1bacbe"
+  }
+]
