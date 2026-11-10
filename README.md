@@ -1,6 +1,6 @@
 # PathCowork
 
-**PathCowork: Shadowing Pathologists to Learn Diagnostic and Research Reasoning from Gaze, Voice, and Interaction**
+**PathCowork: Learning from real-world pathology practice to build AI copilots**
 
 ## What Is PathCowork
 
