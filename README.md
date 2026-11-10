@@ -1,6 +1,4 @@
-# PathCowork
-
-**PathCowork: Learning from real-world pathology practice to build AI copilots**
+# PathCowork: Learning from real-world pathology practice to build AI copilots
 
 ## What Is PathCowork
 
