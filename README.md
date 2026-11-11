@@ -47,6 +47,28 @@ Single-class, multiple-class and negative requests on the same skin field, with 
 
 See the [Hugging Face model card](https://huggingface.co/zhihuanglab/pathcowork-grounder-27B-GGUF#4-trained-organs-and-target-concepts) for the full target-concept list, illustrated examples and output formats.
 
+## Agent skills
+
+Five decision workflows are provided in [`skills/`](skills/). Each folder contains
+`skill.py` (the ordered decisions), `SKILL.md` (the workflow and limitations), and
+`config.yaml` (public-grounder prompts and sampling parameters).
+
+| Skill | Workflow |
+|---|---|
+| [prostate_gleason](skills/prostate_gleason) | Low-power region proposals followed by high-power patch grading |
+| [skin_melanocytic](skills/skin_melanocytic) | Junction tracing, melanocytic features and candidate mitoses |
+| [breast_nottingham](skills/breast_nottingham) | Tumour localization and the three Nottingham components |
+| [glioma_grade_features](skills/glioma_grade_features) | Overview and field-level grade-defining features |
+| [lymph_node_metastasis](skills/lymph_node_metastasis) | Node localization, screening and evidence outlines |
+
+Follow [`install_instruct_claude.md`](install_instruct_claude.md) to download the
+released grounder and have Claude connect the workflows to an existing WSI agent
+or [TissueLab](https://github.com/zhihuanglab/TissueLab). The Python files preserve
+the decision sequence and name the operations that the host-agent adapter must
+provide. The application runtime is separate from these workflow recipes.
+The guide includes an image-request example, coordinate conversion, model-role
+mapping and the JSON report contract.
+
 ## System requirements and tested environments
 
 The PathCowork interface was tested on macOS 26 and macOS 27 using Google Chrome. The tested hardware included an Apple M5 Pro Mac with 64 GB of unified memory. Windows browser compatibility has not been tested for this release.
@@ -147,6 +169,9 @@ Expected outputs include localized findings and their visual evidence; the groun
 
 
 ## Repository Structure
+
+- `skills/`: five organ-specific agent decision workflows
+- `install_instruct_claude.md`: public-grounder setup and host-agent integration
 
 - [TissueLab](https://github.com/zhihuanglab/TissueLab): whole-slide viewer and recording platform maintained in a separate repository
 - `processors/viewport/`: viewport denoising, keyframe extraction, stable navigation segments

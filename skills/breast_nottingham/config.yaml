@@ -1,0 +1,61 @@
+# Public-grounder integration settings; consumed by the host-agent adapter.
+name: breast_nottingham
+organ: breast
+grounder:
+  weights: zhihuanglab/pathcowork-grounder-27B-GGUF
+  api_base_env: PATHCOWORK_GROUNDER_BASE_URL
+  model_env: PATHCOWORK_GROUNDER_MODEL
+  api_key_env: PATHCOWORK_GROUNDER_API_KEY
+  output_coordinates:
+  - 0
+  - 1000
+  temperature: 0
+  max_tokens: 2048
+  request_timeout_s: 600
+  prompt_template: H&E-stained {organ} section, {um_per_px:.3g} um/px, field {field_mm:.2f} mm wide. {instruction}
+  concept_instruction: Find every one of the {concept} in this image and outline each.
+  max_regions: 8
+  clip_to_tissue: true
+  thumb_long_px: 1024
+sampling:
+  tubule_field_um: 1400
+  pleo_field_um: 240
+  tubule_n: 3
+  pleo_n: 6
+  tubule_fraction: 0.7
+  pleo_min_sep_um: 600
+  min_tissue_frac: 0.7
+  max_white_frac: 0.35
+  min_tumor_frac: 0.4
+  min_field_um: 600
+  multi_max_images: 12
+  tubule_area_weighted: true
+prompts:
+  tumour: Outline every focus of invasive carcinoma in this image.
+  tubules: Assess tubule formation across these invasive-carcinoma fields. Return JSON with percent (0-100)
+    and a short reason. Return percent null if carcinoma cannot be assessed.
+  nuclei: Assess nuclear pleomorphism in these invasive-carcinoma fields. Return JSON with score (1, 2,
+    or 3) and a short reason. Return score null if carcinoma cannot be assessed.
+classifier:
+  api_base_env: PATHCOWORK_CLASSIFIER_BASE_URL
+  model_env: PATHCOWORK_CLASSIFIER_MODEL
+  api_key_env: PATHCOWORK_CLASSIFIER_API_KEY
+  max_parallel: 6
+  request_timeout_s: 90
+mitosis:
+  provider: host_agent_detector
+  target_mpp: 0.46
+  tile: 512
+  stride: 448
+  conf: 0.25
+  iou: 0.4
+  max_tiles: 240
+  request_timeout_s: 180
+  on_unavailable: report_incomplete
+nottingham:
+  tubule_high_pct: 75
+  tubule_low_pct: 10
+  mitosis_window_mm2: 2.0
+  mitosis_cutoffs:
+  - 8
+  - 17

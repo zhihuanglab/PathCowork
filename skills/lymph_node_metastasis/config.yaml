@@ -1,0 +1,42 @@
+# Public-grounder integration settings; consumed by the host-agent adapter.
+name: lymph_node_metastasis
+organ: lymph node
+grounder:
+  weights: zhihuanglab/pathcowork-grounder-27B-GGUF
+  api_base_env: PATHCOWORK_GROUNDER_BASE_URL
+  model_env: PATHCOWORK_GROUNDER_MODEL
+  api_key_env: PATHCOWORK_GROUNDER_API_KEY
+  output_coordinates:
+  - 0
+  - 1000
+  temperature: 0
+  max_tokens: 2048
+  request_timeout_s: 180
+  prompt_template: H&E-stained {organ} section, {um_per_px:.3g} um/px, field {field_mm:.2f} mm wide. {instruction}
+  concept_instruction: Find every one of the {concept} in this image and outline each.
+  thumb_long_px: 1024
+  crop_long_px: 1024
+sampling:
+  max_nodes: 12
+  crop_pad: 0.08
+prompts:
+  nodes: Outline each lymph node section in this image.
+  metastasis: Outline all metastatic tumour foci in this image.
+  necrosis: Outline any tumour necrosis in this image.
+variants:
+  colon:
+    project: colon_ln
+    zoom:
+      enabled: true
+      target_mm: 2.5
+      frac: 0.8
+      votes: 4
+      max_grid: 4
+  breast:
+    project: breast_ln
+    zoom:
+      enabled: true
+      target_mm: 1.2
+      frac: 0.12
+      votes: 2
+      max_grid: 6

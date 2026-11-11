@@ -1,0 +1,41 @@
+# Public-grounder integration settings; consumed by the host-agent adapter.
+name: skin_melanocytic
+organ: skin
+grounder:
+  weights: zhihuanglab/pathcowork-grounder-27B-GGUF
+  api_base_env: PATHCOWORK_GROUNDER_BASE_URL
+  model_env: PATHCOWORK_GROUNDER_MODEL
+  api_key_env: PATHCOWORK_GROUNDER_API_KEY
+  output_coordinates:
+  - 0
+  - 1000
+  temperature: 0
+  max_tokens: 2048
+  request_timeout_s: 300
+  prompt_template: H&E-stained {organ} section, {um_per_px:.3g} um/px, field {field_mm:.2f} mm wide. {instruction}
+  concept_instruction: Find every one of the {concept} in this image and outline each.
+  field_um: 6000
+  merge_min_overlap: 0.5
+  min_focus_frac: 0.003
+sampling:
+  patch_size_um: 1500
+  min_tissue_frac: 0.2
+prompts:
+  junction: Trace the dermoepidermal junction across this image as a polyline.
+  concepts:
+  - confluent junctional melanocytic growth
+  - junctional melanocytic nests
+  - pagetoid spread of melanocytes
+  - lentiginous melanocytic proliferation
+  - dermal melanocytic nests
+  - melanophages
+mitosis:
+  provider: host_agent_detector
+  target_mpp: 0.46
+  tile: 512
+  stride: 448
+  conf: 0.25
+  iou: 0.4
+  max_tiles: 240
+  request_timeout_s: 180
+  on_unavailable: report_incomplete

@@ -1,0 +1,37 @@
+# Public-grounder integration settings; consumed by the host-agent adapter.
+name: glioma_grade_features
+organ: brain
+grounder:
+  weights: zhihuanglab/pathcowork-grounder-27B-GGUF
+  api_base_env: PATHCOWORK_GROUNDER_BASE_URL
+  model_env: PATHCOWORK_GROUNDER_MODEL
+  api_key_env: PATHCOWORK_GROUNDER_API_KEY
+  output_coordinates:
+  - 0
+  - 1000
+  temperature: 0
+  max_tokens: 2048
+  request_timeout_s: 180
+  prompt_template: H&E-stained {organ} section, {um_per_px:.3g} um/px, field {field_mm:.2f} mm wide. {instruction}
+  concept_instruction: Find every one of the {concept} in this image and outline each.
+  thumb_um_px: 8.0
+  tile_um_px: 3.0
+  tile_px: 776
+sampling:
+  tile_um: 2328
+  max_tiles: 6
+prompts:
+  overview:
+    necrosis: Outline every area of necrosis in this image.
+    infiltrating: Outline the infiltrating tumour margin in this image.
+  fields:
+    microvascular_proliferation: Outline every focus of microvascular proliferation in this image.
+    pseudopalisading: Outline every area of pseudopalisading necrosis in this image.
+effort:
+  fast: 10
+  high: 20
+  extra: 40
+  max: 60
+second_opinion:
+  provider: host_agent_multimodal_model
+  required_for: max

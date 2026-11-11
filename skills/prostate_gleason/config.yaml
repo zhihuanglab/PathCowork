@@ -1,0 +1,43 @@
+# Public-grounder integration settings; consumed by the host-agent adapter.
+name: prostate_gleason
+organ: prostate needle biopsy
+grounder:
+  weights: zhihuanglab/pathcowork-grounder-27B-GGUF
+  api_base_env: PATHCOWORK_GROUNDER_BASE_URL
+  model_env: PATHCOWORK_GROUNDER_MODEL
+  api_key_env: PATHCOWORK_GROUNDER_API_KEY
+  output_coordinates:
+  - 0
+  - 1000
+  temperature: 0
+  max_tokens: 2048
+  request_timeout_s: 120
+  prompt_template: H&E-stained {organ} section, {um_per_px:.3g} um/px, field {field_mm:.2f} mm wide. {instruction}
+  concept_instruction: Find every one of the {concept} in this image and outline each.
+  render_long_px: 1280
+  max_regions: 6
+  clip_to_tissue: true
+  clip_min_inside_frac: 0.7
+  clip_max_points: 12
+sampling:
+  max_total: 30
+  roi_fraction: 0.8
+  patch_size_um: 320
+  min_per_roi: 3
+  max_per_roi: 15
+  tissue_interval_um: 600
+prompts:
+  survey: Outline the areas of prostatic adenocarcinoma that should be examined at higher power.
+  concepts:
+  - prostatic adenocarcinoma
+  - Gleason pattern 3 carcinoma
+  - Gleason pattern 4 carcinoma
+  - Gleason pattern 5 carcinoma
+  patch_grading: Assess this high-power prostate needle-biopsy field. Return JSON with label (benign,
+    atypical, g3, g4, or g5) and a short reason. Return label null if the field cannot be assessed.
+classifier:
+  api_base_env: PATHCOWORK_CLASSIFIER_BASE_URL
+  model_env: PATHCOWORK_CLASSIFIER_MODEL
+  api_key_env: PATHCOWORK_CLASSIFIER_API_KEY
+  max_parallel: 8
+  request_timeout_s: 60
