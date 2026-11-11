@@ -64,6 +64,36 @@ The runtime number above identifies the llama.cpp runtime package distributed by
 
 The [TissueLab viewer and service](https://github.com/zhihuanglab/TissueLab) use Node.js 24 or later and Python 3.11. Platform dependencies are documented in the [TissueLab Quick Start](https://github.com/zhihuanglab/TissueLab#-quick-start), with versioned Python requirements for [macOS](https://github.com/zhihuanglab/TissueLab/blob/main/app/service/requirements-macos.txt), [Windows](https://github.com/zhihuanglab/TissueLab/blob/main/app/service/requirements-windows.txt) and [Linux](https://github.com/zhihuanglab/TissueLab/blob/main/app/service/requirements-linux.txt). The viewer/service environment and the model inference backend are installed separately. Processing-script usage and dependencies are described in [processors/README.md](processors/README.md).
 
+### Processing dependencies
+
+Use Python **3.12.11** for the processing scripts in this repository. Install the core requirements and add the optional groups needed for your workflow:
+
+| Function | Packages and versions | Dependency file |
+|---|---|---|
+| Core visualization and output generation | NumPy 2.2.6, matplotlib 3.10.5, Pillow 11.3.0 | [requirements.txt](requirements.txt) |
+| OpenAI transcription and OpenAI/Gemini generation | openai 1.101.0, google-genai 1.57.0 | [requirements-api.txt](requirements-api.txt) |
+| Streamlit history browser | streamlit 1.67.0 | [requirements-ui.txt](requirements-ui.txt) |
+| Local voice transcription | faster-whisper 1.2.1, PyAV 14.4.0 | [requirements-voice.txt](requirements-voice.txt) |
+
+The core and API package versions match the recorded local conda environment. The optional UI and local-voice versions define the reference installation for those features.
+
+From the repository root:
+
+```bash
+conda create -n pathcowork python=3.12.11
+conda activate pathcowork
+python -m pip install -r requirements.txt
+
+# Install the optional groups you need:
+python -m pip install -r requirements-api.txt
+python -m pip install -r requirements-ui.txt
+python -m pip install -r requirements-voice.txt
+```
+
+The [complete macOS/Python 3.12 dependency snapshot](requirements-macos-py312.lock.txt) records the resolved versions, including transitive dependencies, for the core and all three optional groups. Install it with `python -m pip install -r requirements-macos-py312.lock.txt` to reproduce that Python environment. This environment is separate from TissueLab's Python 3.11 service and the model-serving runtimes.
+
+Local faster-whisper transcription uses PyAV's bundled FFmpeg libraries; a separate system FFmpeg installation is not required. Its optional NVIDIA GPU backend requires CUDA 12/cuBLAS and cuDNN 9, as described in the [faster-whisper requirements](https://github.com/SYSTRAN/faster-whisper#requirements). CPU transcription does not require CUDA. API-backed features require the relevant service credentials; the core visualization and Streamlit browser do not require an API key.
+
 ### Model hardware
 
 **27B local inference.** The tested local hardware is the Apple M5 Pro Mac with 64 GB of unified memory described above. The [Q4_K_M model](https://huggingface.co/zhihuanglab/pathcowork-grounder-27B-GGUF/tree/main) is approximately 16.81 GB and its vision projector is approximately 0.93 GB, requiring approximately 17.74 GB of storage together. Inference additionally uses memory for context, image processing and runtime buffers. NVIDIA GPU deployment can use a compatible llama.cpp CUDA backend. Memory requirements vary with context length and inference settings.

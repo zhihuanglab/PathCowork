@@ -126,12 +126,19 @@ python3 processors/voice/transcribe_audio.py \
 
 ## Dependencies
 
-- Required for visualization readers:
-  - `matplotlib`
-- Optional for voice backends:
-  - `openai` (for `openai_api`)
-  - `faster-whisper` (for `local_whisper`)
-  - `ffmpeg` (typically needed by local audio decoding backends)
+Use Python 3.12.11. From the repository root, install the core visualization dependencies with:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+This installs NumPy 2.2.6, matplotlib 3.10.5 and Pillow 11.3.0. Optional packages are grouped separately:
+
+- `requirements-api.txt`: openai 1.101.0 and google-genai 1.57.0 for API-backed transcription and output generation.
+- `requirements-ui.txt`: streamlit 1.67.0 for the history browser.
+- `requirements-voice.txt`: faster-whisper 1.2.1 and PyAV 14.4.0 for local transcription.
+
+Install a group with `python -m pip install -r <requirements-file>` from the repository root. Local faster-whisper decoding uses PyAV's bundled FFmpeg libraries and does not require a separate system FFmpeg installation. See the [root README](../README.md#processing-dependencies) for operating-system details, the complete dependency snapshot and optional CUDA requirements.
 
 ## Final Three Outputs
 

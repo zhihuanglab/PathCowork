@@ -314,7 +314,7 @@ def main() -> None:
         return
     labels = [str(p.relative_to(HISTORY_ROOT)) for p in history_cases]
     if "selected_case_label" not in st.session_state or st.session_state["selected_case_label"] not in labels:
-        default_label = str(Path(DEFAULT_CASE).relative_to(Path('/Volumes/ExternalHD/PathLearn/videos/example_data')))
+        default_label = str(Path(DEFAULT_CASE).relative_to(HISTORY_ROOT))
         st.session_state["selected_case_label"] = default_label if default_label in labels else labels[0]
     selected_case_label = st.sidebar.selectbox(
         "History folder",

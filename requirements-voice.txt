@@ -1,0 +1,4 @@
+# Optional local transcription using the faster-whisper backend.
+-r requirements.txt
+faster-whisper==1.2.1
+av==14.4.0

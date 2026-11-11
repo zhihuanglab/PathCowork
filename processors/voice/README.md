@@ -29,6 +29,18 @@ No new voice algorithm is introduced. The processor wraps existing ASR backends 
 - Class API: `processors/voice/VoiceData.py`
 - CLI entrypoint: `processors/voice/transcribe_audio.py`
 
+### Installation
+
+Use Python 3.12.11. From the repository root, install `requirements-voice.txt` for local transcription or `requirements-api.txt` for OpenAI transcription:
+
+```bash
+python -m pip install -r requirements-voice.txt
+# Or, for the OpenAI API backend:
+python -m pip install -r requirements-api.txt
+```
+
+The local backend uses faster-whisper 1.2.1 with PyAV 14.4.0. PyAV bundles the FFmpeg libraries needed for audio decoding. See the [dependency overview](../../README.md#processing-dependencies) for the complete environment and optional GPU requirements.
+
 ### Supported backends
 
 1. `openai_api`
